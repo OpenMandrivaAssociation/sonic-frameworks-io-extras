@@ -1,0 +1,12 @@
+diff -up kio-extras-24.05.0/smb/smbcontext.cpp.1~ kio-extras-24.05.0/smb/smbcontext.cpp
+--- kio-extras-24.05.0/smb/smbcontext.cpp.1~	2024-05-24 16:34:13.087337052 +0200
++++ kio-extras-24.05.0/smb/smbcontext.cpp	2024-05-24 16:43:09.073192483 +0200
+@@ -36,6 +36,8 @@ SMBContext::SMBContext(SMBAuthenticator
+     smbc_setOptionUseKerberos(m_context.get(), 1);
+     smbc_setOptionFallbackAfterKerberos(m_context.get(), 1);
+ 
++    smbc_setOptionUseCCache(m_context.get(), 0);
++
+     if (!smbc_init_context(m_context.get())) {
+         m_context.reset();
+         return;
