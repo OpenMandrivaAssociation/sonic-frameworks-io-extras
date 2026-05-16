@@ -46,17 +46,19 @@ BuildRequires: pkgconfig(libplist-2.0)
 BuildRequires: pkgconfig(libappimage)
 BuildRequires: cmake(ECM)
 BuildRequires: cmake(KF6DNSSD)
-BuildRequires: cmake(KF6DocTools)
-BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(KF6DBusAddons)
 BuildRequires: cmake(KF6ConfigWidgets)
 BuildRequires: cmake(KF6IconThemes)
 
 # pending rename
+# BuildRequires: cmake(KF6CoreAddons)
 # BuildRequires: cmake(KF6KIO)
 # BuildRequires: cmake(PlasmaActivities)
+# BuildRequires: cmake(KF6DocTools)
+BuildRequires: %{_lib}SonicFrameworksCoreAddons-devel
 BuildRequires: %{_lib}SonicFrameworksIO-devel
 BuildRequires: %{_lib}SonicActivities-devel
+BuildRequires: %{_lib}SonicFrameworksDocTools-devel
 
 BuildRequires: cmake(KF6Solid)
 BuildRequires: cmake(KF6Pty)
@@ -80,12 +82,20 @@ BuildOption:	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
 %description
 %summary
 
-%libpackage sonicio_archive6 6
+%package -n  %{sonicio_archive6}
+Summary: Sonic Frameworks IO Archive library
+Group: Development/SonicDE and Qt
+Requires: %{mklibname sonic-io_archive6} = %{EVRD}
+Conflicts: %{_lib}kioarchive6
+
+%description -n %{sonicio_archive_devel}
+%summary
 
 %package -n %{sonicio_archive_devel}
 Summary: Development files for the Sonic Frameworks IO Archive library
 Group: Development/SonicDE and Qt
 Requires: %{mklibname sonic-io_archive6} = %{EVRD}
+Conflicts: %{_lib}kioarchive6-devel
 
 %description -n %{sonicio_archive_devel}
 %summary
