@@ -5,6 +5,9 @@
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 
+%define libname %mklibname SonicFrameworksArchive6
+%define devname %mklibname SonicFrameworksArchive6 -d
+
 Name: sonic-frameworks-io-extras
 Version:	26.04.1
 Release:	%{?git:0.%{git}.}1
@@ -57,7 +60,7 @@ BuildRequires: cmake(KF6IconThemes)
 # BuildRequires: cmake(KF6DocTools)
 BuildRequires: %{_lib}SonicFrameworksCoreAddons-devel
 BuildRequires: %{_lib}SonicFrameworksIO-devel
-BuildRequires: %{_lib}SonicActivities-devel
+BuildRequires: %{_lib}SonicDEActivities-devel
 BuildRequires: %{_lib}SonicFrameworksDocTools-devel
 
 BuildRequires: cmake(KF6Solid)
@@ -70,9 +73,8 @@ BuildRequires: cmake(KExiv2Qt6)
 BuildRequires: cmake(KDSoapWSDiscoveryClient)
 BuildRequires: cmake(KF6Notifications)
 BuildRequires: kdsoap-qt6-devel
-Requires: %{mklibname sonicio_archive6} = %{EVRD}
+Requires: %libname = %{EVRD}
 Requires: sonic-frameworks-io
-%define sonicio_archive_devel %{mklibname -d sonicio_archive6}
 
 Conflicts: kio-extras
 
@@ -82,22 +84,22 @@ BuildOption:	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
 %description
 %summary
 
-%package -n  %{sonicio_archive6}
+%package -n  %libname
 Summary: Sonic Frameworks IO Archive library
 Group: Development/SonicDE and Qt
-Requires: %{mklibname sonic-io_archive6} = %{EVRD}
+Requires: %name = %{EVRD}
 Conflicts: %{_lib}kioarchive6
 
-%description -n %{sonicio_archive_devel}
+%description -n %libname
 %summary
 
-%package -n %{sonicio_archive_devel}
+%package -n %devname
 Summary: Development files for the Sonic Frameworks IO Archive library
 Group: Development/SonicDE and Qt
-Requires: %{mklibname sonic-io_archive6} = %{EVRD}
+Requires: %libname = %{EVRD}
 Conflicts: %{_lib}kioarchive6-devel
 
-%description -n %{sonicio_archive_devel}
+%description -n %devname
 %summary
 
 %files -f %{name}.lang
@@ -129,6 +131,9 @@ Conflicts: %{_lib}kioarchive6-devel
 %{_datadir}/kio_filenamesearch
 %{_libdir}/libexec/wpad-detector-helper
 
-%files -n %{sonicio_archive_devel}
+%files -n %libname
+%{_libdir}/libkioarchive6*
+
+%files -n %devname
 %{_includedir}/KioArchive6
 %{_libdir}/cmake/KioArchive6
