@@ -102,6 +102,9 @@ Conflicts: %{_lib}kioarchive6-devel
 %description -n %devname
 %summary
 
+%install -a
+rm -rf %{buildroot}/%{_libdir}/cmake
+
 %files -f %{name}.lang
 %{_datadir}/qlogging-categories6/kio-extras.categories
 %{_qtdir}/plugins/*.so
@@ -136,4 +139,6 @@ Conflicts: %{_lib}kioarchive6-devel
 
 %files -n %devname
 %{_includedir}/KioArchive6
-%{_libdir}/cmake/KioArchive6
+
+# pending rename
+# %{_libdir}/cmake/KioArchive6
